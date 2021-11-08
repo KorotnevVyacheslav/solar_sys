@@ -10,6 +10,9 @@ import thorpy
 import time
 import numpy as np
 
+#хуй
+
+
 timer = None
 
 alive = True
