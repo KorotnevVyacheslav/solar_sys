@@ -11,6 +11,7 @@ import time
 import numpy as np
 
 #хуй
+#что за даун писал этот код?
 
 
 timer = None
@@ -103,9 +104,9 @@ def init_ui(screen):
 
     box = thorpy.Box(elements=[
         slider,
-        button_pause, 
-        button_stop, 
-        button_play, 
+        button_pause,
+        button_stop,
+        button_play,
         button_load,
         timer])
     reaction1 = thorpy.Reaction(reacts_to=thorpy.constants.THORPY_EVENT,
@@ -114,7 +115,7 @@ def init_ui(screen):
                                 params={},
                                 reac_name="slider reaction")
     box.add_reaction(reaction1)
-    
+
     menu = thorpy.Menu(box)
     for element in menu.get_population():
         element.surface = screen
@@ -128,7 +129,7 @@ def main():
     """Главная функция главного модуля.
     Создаёт объекты графического дизайна библиотеки tkinter: окно, холст, фрейм с кнопками, кнопки.
     """
-    
+
     global physical_time
     global displayed_time
     global time_step
@@ -142,7 +143,7 @@ def main():
     physical_time = 0
 
     pg.init()
-    
+
     width = 1000
     height = 900
     screen = pg.display.set_mode((width, height))
