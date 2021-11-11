@@ -1,9 +1,19 @@
 # coding: utf-8
 # license: GPLv3
 
-from solar_objects import Star, Planet
+from solar_objects import Body
 from solar_vis import DrawableObject
 
+COLORS = {
+            'red' : (255, 0, 0),
+            'black' : (0, 0, 0),
+            'green' : (0, 255, 0),
+            'blue' : (0, 0, 255),
+            'orange' : (255, 165, 0),
+            'yellow' : (255, 255, 0),
+            'white' : (255, 255, 255),
+            'gray' : (128, 128, 128)
+        }
 
 
 def read_space_objects_data_from_file(input_filename):
