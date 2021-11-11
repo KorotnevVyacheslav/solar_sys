@@ -54,7 +54,7 @@ def global_collision_check(space_objects):
                 space_objects.remove(body)
                 space_objects.remove(obj)
                 body_exists = False
-            if body_exists:
+            if not body_exists:
                 break
 
 
