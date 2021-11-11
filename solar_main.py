@@ -11,7 +11,7 @@ import time
 import numpy as np
 
 #хуй
-#что за даун писал этот код?
+#возмущен непониманием этого кода
 
 
 timer = None
@@ -40,7 +40,9 @@ def execution(delta):
     """
     global model_time
     global displayed_time
-    recalculate_space_objects_positions([dr.obj for dr in space_objects], delta)
+    for dr in space_objects:
+        dr.move(delta)
+    #recalculate_space_objects_positions([dr.obj for dr in space_objects], delta)
     model_time += delta
 
 
