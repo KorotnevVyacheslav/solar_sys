@@ -86,7 +86,6 @@ def write_space_objects_data_to_file(output_filename, space_objects):
         for body in space_objects:
             line = ""
             line += body.type + " " + str(body.r) + " " + str(body.color) + " " + str(body.m) + " " + str(body.x) + " " + str(body.y) + " " + str(body.vx) + " " + str(body.vy)
-
             out_file.write(line + "\n")
 
 
