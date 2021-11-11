@@ -13,7 +13,8 @@ COLORS = {
             'orange' : (255, 165, 0),
             'yellow' : (255, 255, 0),
             'white' : (255, 255, 255),
-            'gray' : (128, 128, 128)
+            'gray' : (128, 128, 128),
+            'cyan' : (0, 255, 255)
         }
 
 
@@ -28,7 +29,7 @@ def read_space_objects_data_from_file(input_filename):
 
 
     array = []
-    with open("solar_system.csv", newline="\n") as csvfile:
+    with open(input_filename, newline="\n") as csvfile:
         ar = csv.reader(csvfile, delimiter=" ")
         for row in ar:
             if len(row) == 0:

@@ -1,6 +1,7 @@
 # coding: utf-8
 # license: GPLv3
 
+
 gravitational_constant = 6.67408E-11
 
 class Body:
@@ -47,12 +48,12 @@ class Body:
         self.y += self.vy * dt
         self.x += self.vx * dt
 
-    def distance_check(self, x , y , rad):
+    def distance_check(self, x , y , rad, factor):
         '''
         Считает расстояние от тела до тела
         '''
-        distance_q = (x - self.x) ** 2 + (y - self.y) ** 2
-        if distance_q < (self.r + rad) ** 2:
+        distance_q = (((x - self.x) ** 2 + (y - self.y) ** 2)**(0.5))*(factor)
+        if distance_q < (self.r + rad):
             return False
         else:
             return True

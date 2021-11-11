@@ -25,7 +25,9 @@ model_time = 0
 """Физическое время от начала расчёта.
 Тип: float"""
 
-time_scale = 100000.0
+scale_factor = 1
+
+time_scale = 400000.0
 """Шаг по времени при моделировании.
 Тип: float"""
 
@@ -40,6 +42,10 @@ def execution(delta, screen):
     """
     global model_time
     global displayed_time
+    global space_objects
+    global scale_factor
+    
+    global_collision_check(space_objects, scale_factor)
     for dr in space_objects:
         calculate_force(dr.obj , [spobj.obj for spobj in space_objects])
     for dr in space_objects:
@@ -74,6 +80,7 @@ def open_file():
     global space_objects
     global browser
     global model_time
+    global scale_factor
 
     model_time = 0.0
     in_filename = "solar_system.csv"
@@ -82,7 +89,7 @@ def open_file():
     for obj in space_objects:
         distances.append
     max_distance = max([max(abs(obj.obj.x), abs(obj.obj.y)) for obj in space_objects])
-    calculate_scale_factor(max_distance)
+    scale_factor = calculate_scale_factor(max_distance)
 
 def handle_events(events, menu):
     global alive
@@ -152,7 +159,7 @@ def main():
     pg.init()
 
     width = 1000
-    height = 900
+    height = 700
     screen = pg.display.set_mode((width, height))
     last_time = time.perf_counter()
     drawer = Drawer(screen)
