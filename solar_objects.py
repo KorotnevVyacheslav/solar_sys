@@ -63,10 +63,10 @@ class Body:
         x, y - координаты точки
         '''
         distance_q = (x - self.x) ** 2 + (y - self.y) ** 2
-        ex = (self.x - x) / np.sqrt(distance_q)
-        ey = (self.y - y) / np.sqrt(distance_q)
-        electric_field = gravitational_constant * self.m / distance_quadratic
-        return [electric_field * ex, electric_field * ey]
+        ex = (self.x - x) / (distance_q)**(0.5)
+        ey = (self.y - y) / (distance_q)**(0.5)
+        grav_field = gravitational_constant * self.m / (distance_q)
+        return [grav_field * ex, grav_field * ey]
 
 
 if __name__ == "__main__":

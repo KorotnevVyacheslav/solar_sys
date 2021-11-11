@@ -25,7 +25,7 @@ model_time = 0
 """Физическое время от начала расчёта.
 Тип: float"""
 
-time_scale = 1000.0
+time_scale = 100000.0
 """Шаг по времени при моделировании.
 Тип: float"""
 
@@ -41,9 +41,10 @@ def execution(delta, screen):
     global model_time
     global displayed_time
     for dr in space_objects:
+        calculate_force(dr.obj , [spobj.obj for spobj in space_objects])
+    for dr in space_objects:
         dr.move(delta)
         dr.draw(screen)
-    #recalculate_space_objects_positions([dr.obj for dr in space_objects], delta)
     model_time += delta
 
 
