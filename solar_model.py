@@ -20,9 +20,10 @@ def calculate_force(body, space_objects):
     for obj in space_objects:
         if body == obj:
             continue  # тело не действует гравитационной силой на само себя!
-        electric_field = obj.field(body.x, body.y)
-        body.fx += body.m * electric_field[0]
-        body.fy += body.m * electric_field[1]
+        else:
+            electric_field = obj.field(body.x, body.y)
+            body.fx += body.m * electric_field[0]
+            body.fy += body.m * electric_field[1]
 
 
 def global_collision_check(space_objects):
