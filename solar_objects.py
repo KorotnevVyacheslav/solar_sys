@@ -36,7 +36,7 @@ class Body:
         self.r = 5
         """Радиус звезды"""
 
-        self.color = (0,0,0)
+        self.color = (255,0,0)
         """Цвет звезды"""
 
     def move(self, dt):

@@ -37,6 +37,7 @@ def read_space_objects_data_from_file(input_filename):
                 continue
             array.append(row)
 
+    #print(array)
 
     objects = []
     for line in array:
@@ -99,7 +100,7 @@ def write_space_objects_data_to_file(output_filename, space_objects):
             line += body.type + " " + str(body.r) + " " + str(body.color) + " " + str(body.m) + " " + str(body.x) + " " + str(body.y) + " " + str(body.vx) + " " + str(body.vy)
             out_file.write(line + "\n")
 
-read_space_objects_data_from_file("solar_system.txt")
+#read_space_objects_data_from_file("solar_system.csv")
 
 if __name__ == "__main__":
     print("This module is not for direct call!")
