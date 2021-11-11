@@ -32,7 +32,7 @@ time_scale = 1000.0
 space_objects = []
 """Список космических объектов."""
 
-def execution(delta):
+def execution(delta, screen):
     """Функция исполнения -- выполняется циклически, вызывая обработку всех небесных тел,
     а также обновляя их положение на экране.
     Цикличность выполнения зависит от значения глобальной переменной perform_execution.
@@ -41,7 +41,8 @@ def execution(delta):
     global model_time
     global displayed_time
     for dr in space_objects:
-        dr.obj.move(delta)
+        dr.move(delta)
+        dr.draw(screen)
     #recalculate_space_objects_positions([dr.obj for dr in space_objects], delta)
     model_time += delta
 
@@ -74,7 +75,7 @@ def open_file():
     global model_time
 
     model_time = 0.0
-    in_filename = "solar_system.txt"
+    in_filename = "solar_system.csv"
     space_objects = read_space_objects_data_from_file(in_filename)
     distances = []
     for obj in space_objects:
@@ -161,7 +162,7 @@ def main():
         handle_events(pg.event.get(), menu)
         cur_time = time.perf_counter()
         if perform_execution:
-            execution((cur_time - last_time) * time_scale)
+            execution((cur_time - last_time) * time_scale, screen)
             text = "%d seconds passed" % (int(model_time))
             timer.set_text(text)
 

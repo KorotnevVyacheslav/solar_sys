@@ -80,8 +80,20 @@ class Drawer:
 
 
 class DrawableObject:
+    global COLORS
+
     def __init__(self, obj):
         self.obj = obj
+        self.x = scale_x(obj.x)
+        self.y = scale_y(obj.y)
+        self.r = obj.r
+
+    def move(self, delta):
+        self.obj.move(delta)   
+        self.x = scale_x(self.obj.x)
+        self.y = scale_y(self.obj.y) 
 
     def draw(self, surface):
-            pg.draw.circle(surface, self.obj.color, (self.obj.x, self.obj.y), self.obj.r)
+            pg.draw.circle(surface, self.obj.color, (self.x, self.y), self.r)
+
+
