@@ -57,14 +57,14 @@ def parse_parameters(line, body):
     """
 
     body.type = line[0]
-    body.r = line[1]
+    body.r = float(line[1])
     color = line[2]
     body.color = COLORS.get(color)
-    body.m = line[3]
-    body.x = line[4]
-    body.y = line[5]
-    body.vx = line[6]
-    body.vy = line[7]
+    body.m = float(line[3])
+    body.x = float(line[4])
+    body.y = float(line[5])
+    body.vx = float(line[6])
+    body.vy = float(line[7])
 
 
 def write_space_objects_data_to_file(output_filename, space_objects):
@@ -83,17 +83,11 @@ def write_space_objects_data_to_file(output_filename, space_objects):
     **space_objects** — список объектов планет и звёзд
     """
     with open(output_filename, 'w') as out_file:
-        for obj in space_objects:
-            line = [] * 8
-            line[0] = body.type
-            line[1] = body.r
-            line[2] = body.color
-            line[3] = body.m
-            line[4] = body.x
-            line[5] = body.y
-            line[6] = body.vx
-            line[7] = body.vy
-            print(out_file, line)
+        for body in space_objects:
+            line = ""
+            line += body.type + " " + str(body.r) + " " + str(body.color) + " " + str(body.m) + " " + str(body.x) + " " + str(body.y) + " " + str(body.vx) + " " + str(body.vy)
+
+            out_file.write(line + "\n")
 
 
 if __name__ == "__main__":
