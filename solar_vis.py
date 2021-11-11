@@ -42,7 +42,6 @@ def scale_x(x):
 
     **x** — x-координата модели.
     """
-
     return int(x*scale_factor) + window_width//2
 
 
@@ -57,7 +56,7 @@ def scale_y(y):
 
     **y** — y-координата модели.
     """
-    pass  # FIXME
+    return window_height//2 - int(y*scale_factor)
 
 
 
@@ -85,4 +84,4 @@ class DrawableObject:
         self.obj = obj
 
     def draw(self, surface):
-            pass  # FIXME
+            pg.circle(surface, self.obj.color, (self.obj.x, self.obj.y), self.obj.r)
