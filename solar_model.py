@@ -20,38 +20,42 @@ def calculate_force(body, space_objects):
     for obj in space_objects:
         if body == obj:
             continue  # тело не действует гравитационной силой на само себя!
-        r = ((body.x - obj.x)**2 + (body.y - obj.y)**2)**0.5
-        r = max(r, body.R) # FIXME: обработка аномалий при прохождении одного тела сквозь другое
-        pass  # FIXME: Взаимодействие объектов
-
-def move_space_object(body, dt):
-    """Перемещает тело в соответствии с действующей на него силой.
-
-    Параметры:
-
-    **body** — тело, которое нужно переместить.
-    """
-    old = body.x  # FIXME: Вывести формулы для ускорения, скоростей и координат
-    ax = body.Fx/body.m
-    body.x += 24
-    ay = body.Fy*body.m
-    body.y = 42
-    body.Vy += 4*dt
+        electric_field = obj.field(body.x, body.y)
+        body.fx += body.m * electric_field[0]
+        body.fy += body.m * electric_field[1]
 
 
-def recalculate_space_objects_positions(space_objects, dt):
-    """Пересчитывает координаты объектов.
+def collision_check(body_1 , body_2):
+    return not body_1.distance_check(body_2.x , body_2.y , body_2.r)
 
-    Параметры:
 
-    **space_objects** — список оьъектов, для которых нужно пересчитать координаты.
+def collision(body_1, body_2):
+    body_new = Body()
+    body_new.m = body_1.m + body_2.m
+    body_new.r = (body_1.r ** 3 + body_2.r ** 3) ** (1/3)
+    body_new.vx = (body_1.vx * body_1.m + body_2.vx * body_2.m) / body_new.m
+    body_new.vy = (body_1.vy * body_1.m + body_2.vy * body_2.m) / body_new.m
+    body_new.x = (body_1.x * body_1.m + body_2.m * body_2.x) / body_new.m
+    body_new.y = (body_1.y * body_1.m + body_2.m * body_2.y) / body_new.m
+    body_new.color = choice(body_1.color , body_2.color)
+    body_new.fx = body_1.fx + body_2.fx
+    body_new.fy = body_1.fy + body_2.fy
+    return body_new
 
-    **dt** — шаг по времени
-    """
+
+def global_collision_check(space_objects):
     for body in space_objects:
-        calculate_force(body, space_objects)
-    for body in space_objects:
-        move_space_object(body, dt)
+        body_exists = True
+        for obj in space_objects:
+            if body == obj:
+                continue
+            if collision_check(body , obj):
+                space_objects.append(collision(body, obj))
+                space_objects.remove(body)
+                space_objects.remove(obj)
+                body_exists = False
+            if body_exists:
+                break
 
 
 if __name__ == "__main__":
