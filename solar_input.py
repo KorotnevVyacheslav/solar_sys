@@ -84,7 +84,6 @@ def write_space_objects_data_to_file(output_filename, space_objects):
             line[6] = body.vx
             line[7] = body.vy
             print(out_file, line)
-            # FIXME!
 
 
 if __name__ == "__main__":
