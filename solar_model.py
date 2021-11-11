@@ -25,25 +25,25 @@ def calculate_force(body, space_objects):
         body.fy += body.m * electric_field[1]
 
 
-def collision_check(body_1 , body_2):
-    return not body_1.distance_check(body_2.x , body_2.y , body_2.r)
-
-
-def collision(body_1, body_2):
-    body_new = Body()
-    body_new.m = body_1.m + body_2.m
-    body_new.r = (body_1.r ** 3 + body_2.r ** 3) ** (1/3)
-    body_new.vx = (body_1.vx * body_1.m + body_2.vx * body_2.m) / body_new.m
-    body_new.vy = (body_1.vy * body_1.m + body_2.vy * body_2.m) / body_new.m
-    body_new.x = (body_1.x * body_1.m + body_2.m * body_2.x) / body_new.m
-    body_new.y = (body_1.y * body_1.m + body_2.m * body_2.y) / body_new.m
-    body_new.color = choice(body_1.color , body_2.color)
-    body_new.fx = body_1.fx + body_2.fx
-    body_new.fy = body_1.fy + body_2.fy
-    return body_new
-
-
 def global_collision_check(space_objects):
+
+    def collision_check(body_1 , body_2):
+        return not body_1.distance_check(body_2.x , body_2.y , body_2.r)
+
+    def collision(body_1, body_2):
+        body_new = Body()
+        body_new.m = body_1.m + body_2.m
+        body_new.r = (body_1.r ** 3 + body_2.r ** 3) ** (1/3)
+        body_new.vx = (body_1.vx * body_1.m + body_2.vx * body_2.m) / body_new.m
+        body_new.vy = (body_1.vy * body_1.m + body_2.vy * body_2.m) / body_new.m
+        body_new.x = (body_1.x * body_1.m + body_2.m * body_2.x) / body_new.m
+        body_new.y = (body_1.y * body_1.m + body_2.m * body_2.y) / body_new.m
+        body_new.color = choice(body_1.color , body_2.color)
+        body_new.fx = body_1.fx + body_2.fx
+        body_new.fy = body_1.fy + body_2.fy
+        return body_new
+
+
     for body in space_objects:
         body_exists = True
         for obj in space_objects:
