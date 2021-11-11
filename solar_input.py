@@ -3,6 +3,8 @@
 
 from solar_objects import Body
 from solar_vis import DrawableObject
+import pandas as pd
+import csv
 
 COLORS = {
             'red' : (255, 0, 0),
@@ -25,13 +27,23 @@ def read_space_objects_data_from_file(input_filename):
     **input_filename** — имя входного файла
     """
 
+
+    array = []
+    with open("solar_system.csv", newline="\n") as csvfile:
+        ar = csv.reader(csvfile, delimiter=" ")
+        for row in ar:
+            if len(row) == 0:
+                continue
+            elif (list(row))[0] == "#":
+                continue
+            array.append(row)
+
+
     objects = []
-    with open(input_filename, 'r') as input_file:
-        for line in input_file:
-            if len(line.strip()) == 0 or line[0] == '#':
-                continue  # пустые строки и строки-комментарии пропускаем
-            body = Body()
-            parse_parameters(line, body)
+    for line in array:
+        body = Body()
+        parse_parameters(line, body)
+        objects.append(body)
 
     return [DrawableObject(obj) for obj in objects]
 
@@ -57,14 +69,14 @@ def parse_parameters(line, body):
     """
 
     body.type = line[0]
-    body.r = float(line[1])
+    body.r = line[1]
     color = line[2]
     body.color = COLORS.get(color)
-    body.m = float(line[3])
-    body.x = float(line[4])
-    body.y = float(line[5])
-    body.vx = float(line[6])
-    body.vy = float(line[7])
+    body.m = line[3]
+    body.x = line[4]
+    body.y = line[5]
+    body.vx = line[6]
+    body.vy = line[7]
 
 
 def write_space_objects_data_to_file(output_filename, space_objects):
@@ -88,6 +100,7 @@ def write_space_objects_data_to_file(output_filename, space_objects):
             line += body.type + " " + str(body.r) + " " + str(body.color) + " " + str(body.m) + " " + str(body.x) + " " + str(body.y) + " " + str(body.vx) + " " + str(body.vy)
             out_file.write(line + "\n")
 
+read_space_objects_data_from_file("solar_system.txt")
 
 if __name__ == "__main__":
     print("This module is not for direct call!")
