@@ -3,7 +3,6 @@
 
 from solar_objects import Body
 from solar_vis import DrawableObject
-import pandas as pd
 import csv
 
 COLORS = {
