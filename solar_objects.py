@@ -9,6 +9,9 @@ class Body:
     а также визуальный радиус звезды в пикселах и её цвет.
     """
     def __init__(self):
+
+        self.type = "planet"
+
         self.m = 1
         """Масса звезды"""
 
@@ -33,7 +36,7 @@ class Body:
         self.r = 5
         """Радиус звезды"""
 
-        self.color = "red"
+        self.color = (0,0,0)
         """Цвет звезды"""
 
     def move(self, dt):
@@ -43,16 +46,6 @@ class Body:
         self.vx += self.fx / self.m * dt
         self.y += self.vy * dt
         self.x += self.vx * dt
-
-    def draw(self, surface):
-        '''
-        Отрисовывает тело на поверхности
-        surface - поверхность для отрисовки
-        self.x , self.y - координаты тела
-        self.r - радиус тела
-        self. color - цвет тела
-        '''
-        pg.circle(surface, self.color, (self.x, self.y) , self.r)
 
     def distance_check(self, x , y , rad):
         '''
