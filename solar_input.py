@@ -27,7 +27,7 @@ def read_space_objects_data_from_file(input_filename):
     **input_filename** — имя входного файла
     """
 
-
+    number = 0
     array = []
     with open(input_filename, newline="\n") as csvfile:
         ar = csv.reader(csvfile, delimiter=" ")
@@ -43,13 +43,14 @@ def read_space_objects_data_from_file(input_filename):
     objects = []
     for line in array:
         body = Body()
-        parse_parameters(line, body)
+        parse_parameters(line, body, number)
         objects.append(body)
+        number += 1
 
     return [DrawableObject(obj) for obj in objects]
 
 
-def parse_parameters(line, body):
+def parse_parameters(line, body, number):
     """Считывает данные о звезде из строки.
 
     Входная строка должна иметь слеюущий формат:
@@ -78,6 +79,7 @@ def parse_parameters(line, body):
     body.y = float(line[5])
     body.vx = float(line[6])
     body.vy = float(line[7])
+    body.number = number
 
 
 def write_space_objects_data_to_file(output_filename, space_objects):

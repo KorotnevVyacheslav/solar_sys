@@ -6,6 +6,7 @@ from solar_vis import *
 from solar_model import *
 from solar_input import *
 from solar_objects import *
+from graph import *
 import thorpy
 import time
 import numpy as np
@@ -32,6 +33,7 @@ time_scale = 400000.0
 Тип: float"""
 
 space_objects = []
+space_graphs = []
 """Список космических объектов."""
 
 def execution(delta, screen):
@@ -44,7 +46,7 @@ def execution(delta, screen):
     global displayed_time
     global space_objects
     global scale_factor
-    
+
     global_collision_check(space_objects, scale_factor)
     for dr in space_objects:
         calculate_force(dr.obj , [spobj.obj for spobj in space_objects])
@@ -52,6 +54,15 @@ def execution(delta, screen):
         dr.move(delta)
         dr.draw(screen)
     model_time += delta
+    iter = 0
+    for graph in space_graphs:
+        for body_1 in space_objects:
+            if body_1.obj.number == iter:
+                graph.data_add(model_time, body_1.obj, space_objects[0].obj)
+
+        iter += 1
+
+
 
 
 def start_execution():
@@ -62,6 +73,10 @@ def start_execution():
     perform_execution = True
 
 def pause_execution():
+    print(1)
+    for graph in space_graphs:
+        graph.plotting_graphs()
+    #space_graphs[0].plotting_graphs()
     global perform_execution
     perform_execution = False
 
@@ -69,6 +84,7 @@ def stop_execution():
     """Обработчик события нажатия на кнопку Start.
     Останавливает циклическое исполнение функции execution.
     """
+
     global alive
     alive = False
 
@@ -85,6 +101,11 @@ def open_file():
     model_time = 0.0
     in_filename = "solar_system.csv"
     space_objects = read_space_objects_data_from_file(in_filename)
+
+    #space_graphs = [Graph()] * len(space_objects)
+    for i in range(len(space_objects)):
+        space_graphs.append(Graph())
+
     distances = []
     for obj in space_objects:
         distances.append

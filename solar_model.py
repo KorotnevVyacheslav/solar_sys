@@ -3,6 +3,7 @@
 
 from solar_vis import DrawableObject
 from solar_objects import Body
+from graph import Graph
 from random import choice
 
 gravitational_constant = 6.67408E-11
@@ -59,6 +60,7 @@ def global_collision_check(space_objects, factor):
         body_new.y = (body_1.y * body_1.m + body_2.m * body_2.y) / body_new.m
         body_new.fx = body_1.fx + body_2.fx
         body_new.fy = body_1.fy + body_2.fy
+        body_new.number = -1
         return body_new
 
 
